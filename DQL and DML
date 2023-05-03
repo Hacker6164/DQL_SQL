@@ -1,0 +1,66 @@
+create table car(
+car_no int,car_name varchar(30), car_price int, car_quantity int);
+insert into car values(112,'Tesla',120000,2),
+(113,'Bmw',230000,3),
+(114,'Audi',250000,4),
+(116,'Tata',120000,5),
+(119,'Kia',230000,4);
+
+select * from car;
+
+select count(car_name), car_price from car group by car_price;
+
+select count(car_name) as count_number,car_price from car group by car_price;
+
+select * from car group by car_price having car_price >120000;
+
+create table visit(
+entry_date date,price int,duration int);
+
+insert into visit values
+('2023-7-10',1000,20),
+('2023-05-1',2000,30),
+('2023-05-28',3000,40);
+
+select * from visit;
+
+select entry_date, count(*) from visit group by entry_date;
+
+SELECT EXTRACT(YEAR FROM ENTRY_DATE) AS YEAR ,
+EXTRACT(MONTH FROM ENTRY_DATE) AS MONTH,
+ROUND(AVG(PRICE),2) FROM VISIT
+GROUP BY EXTRACT(YEAR FROM ENTRY_DATE),EXTRACT(MONTH FROM ENTRY_DATE)
+ORDER BY EXTRACT(YEAR FROM ENTRY_DATE),EXTRACT(MONTH FROM ENTRY_DATE);
+
+select entry_date, round(avg(price),3) as avg_price from visit group by entry_date having count(*) > 1 order by entry_date;
+
+select entry_date, round(avg(price),3) as avg_price from visit group by entry_date having count(*) > 3 order by entry_date;
+
+create table employee(
+emp_id int,name varchar(30),age int,country varchar(30));
+
+insert into employee values(100,'jaswamth',21,'india'),
+(101,'bheema',25,'us'),
+(102,'bharath',36,'us'),
+(103,'nabila',45,'pakistan'),
+(105,'joe',50,'India');
+
+select * from employee;
+
+select count(country),country from employee group by country having count(country) >= 2;
+
+select country,count(country) from employee group by country having max(age) >30;
+
+select country,count(country) from employee group by country having min(age) >= 30;
+
+create table manager(
+id int,nama varchar(30),gender varchar(10),age int,salary int);
+
+insert into manager values(101,'jaswanth','M',20,100000),
+(102,'bheema','M',26,200000),
+(103,'bharath','M',24,80000),
+(104,'Harshitha','F',20,350000);
+
+select nama,sum(salary) as total_salary from manager group by nama having sum(salary) > 100000 order by nama;
+
+select age from manager group by age having count(age) > 2;
